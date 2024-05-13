@@ -1,12 +1,16 @@
-# Code for API here
-from fastapi import FastAPI, Request
+from fastapi import FastAPI
+from kafka import KafkaProducer
+import json
 
 app = FastAPI()
 
+#A Kafka producer is created that connects to a Kafka broker running on localhost:9092
+#The value_serializer argument is set to a function that converts the message value to a JSON string and then encodes it to bytes. Kafka messages must be bytes.
+producer = KafkaProducer(bootstrap_servers='localhost:9092',
+                         value_serializer=lambda v: json.dumps(v).encode('utf-8'))
+
+#In the /data endpoint, the received data is sent to the delhaize_shop Kafka topic using the producer.send() method.
 @app.post("/data")
 async def data(user_data: dict):
-   
-    print(user_data)
-    # TODO: Implement code to send data to the queue
-
+    producer.send('delhaize_shop', user_data)
     return {"status": "ok"}
