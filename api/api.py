@@ -12,5 +12,5 @@ producer = KafkaProducer(bootstrap_servers='localhost:9092',
 #In the /data endpoint, the received data is sent to the delhaize_shop Kafka topic using the producer.send() method.
 @app.post("/data")
 async def data(user_data: dict):
-    producer.send('delhaize_shop', user_data)
+    producer.send('delhaize-shop', user_data)
     return {"status": "ok"}
