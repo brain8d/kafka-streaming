@@ -1,0 +1,1 @@
+#  Cloud manager python class here
