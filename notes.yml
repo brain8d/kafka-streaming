@@ -24,10 +24,30 @@ services:
 # # Docker image kafka
 docker run -p 9092:9092 --name kafka-server apache/kafka:3.7.0
 
-# Set up kafka topic
+# Set up kafka topic directly from docker
 docker exec -it kafka-server /opt/kafka/bin/kafka-topics.sh --create --topic delhaize-shop --bootstrap-server localhost:9092
 
-# check if file is created
-docker exec kafka kafka-topics.sh --list --bootstrap-server localhost:9092
+# Or from bash
+kafka-topics.sh --create --topic delhaize-shop --bootstrap-server localhost:9092
 
-docker exec -it kafka-server /opt/kafka/bin/kafka-topics.sh --describe --topic delhaize-shop --bootstrap-server localhost:9092
+# or run bash
+docker exec -it kafka-server bash # then run commands in /opt/kafka/bin/
+
+# check if file is created
+kafka-topics.sh --list --bootstrap-server localhost:9092
+
+kafka-topics.sh --describe --topic delhaize-shop --bootstrap-server localhost:9092
+
+# KAFKA producer
+kafka-console-producer.sh --bootstrap-server localhost:9092 --topic # topic name first_topic
+
+# Kafka consume messages in console
+kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic delhaize-shop
+
+# Launch API 
+
+uvicorn api.api:app --host 0.0.0.0 --port 8000 
+
+# add opt/kafka/bin to path , makes testing easier
+export KAFKA_HOME=/opt/kafka/bin
+export PATH=$KAFKA_HOME:$PATH

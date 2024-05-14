@@ -1,7 +1,16 @@
 services:
-  kafka:
-    image: apache/kafka:latest
+  kafka-server:
+    image: apache/kafka:3.7.0
     ports:
      - "9092:9092"
     volumes:
-     - /var/run/docker.sock:/var/run/docker.sock 
+      - ./data:/var/lib/kafka/data:rw
+    
+    # kafka-ui:
+    #   image: provectuslabs/kafka-ui:latest
+    #   environment:
+    #     KAFKA_CLUSTERS_0_NAME: local
+    #     # other properties, omitted
+    #     SPRING_CONFIG_ADDITIONAL-LOCATION: /config.yml
+    #   volumes:
+    #     - /tmp/config.yml:/config.yml

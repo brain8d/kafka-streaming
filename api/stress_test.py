@@ -21,12 +21,13 @@ def generate_data():
     }
 
     return data
+   
 
 if __name__ == "__main__":
     from requests import Session
 
     with Session() as sess:
-        for i in range(1000):
+        for i in range(10):
             data = generate_data()
             sess.post("http://localhost:8000/data", json=data)
             
