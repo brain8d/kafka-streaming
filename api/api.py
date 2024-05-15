@@ -13,9 +13,6 @@ class Item(BaseModel):
 
 app = FastAPI()
 
-# port is 8000
-# uvicorn syntax... --port 8000
-
 # A Kafka producer is created that connects to a Kafka broker running on localhost:9092
 # The value_serializer argument is set to a function that converts the message value to a JSON string and then encodes it to bytes. Kafka messages must be bytes.
 producer = KafkaProducer(bootstrap_servers='localhost:9092',
@@ -30,3 +27,11 @@ async def data(user_data: dict):
         return {"status": "ok"}
     else:
         print("Bootstrap not connected")
+
+
+'''@app.get("/data")
+def read_data():
+    return {"key": "value"}'''
+
+# then run uvicorn api.api:app --host 0.0.0.0 --port 8000
+# Uvicorn is a lightning-fast ASGI (Asynchronous Server Gateway Interface) server implementation, using uvloop and httptools.
