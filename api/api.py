@@ -13,9 +13,6 @@ class Item(BaseModel):
 
 app = FastAPI()
 
-# port is 8000
-# uvicorn syntax... --port 8000
-
 # A Kafka producer is created that connects to a Kafka broker running on localhost:9092
 # The value_serializer argument is set to a function that converts the message value to a JSON string and then encodes it to bytes. Kafka messages must be bytes.
 producer = KafkaProducer(bootstrap_servers='localhost:9092',
