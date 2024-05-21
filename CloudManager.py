@@ -8,24 +8,21 @@ logging.basicConfig(
 )
 
 class CloudManager:
-    def __init__(self, endpoint, port, user, password, dbname, ssl_certificate):#specify stuff):
-        self.endpoint = endpoint
+    def __init__(self, host, port, user, password, dbname):#specify stuff):
+        self.endpoint = host
         self.port = port
         self.user = user
         self.password = password
         self.dbname = dbname
-        self.ssl_certificate = ssl_certificate
-
 
     def create_connection(self):
         try:
             connection = psycopg2.connect(
-                endpoint = self.endpoint,
+                host = self.endpoint,
                 port = self.port,
                 dbname=self.dbname,
                 user=self.user,
                 password= self.password,
-                ssl_certificate = self.ssl_certificate
             )
             logging.info("Connection to database succesfully")
             return connection

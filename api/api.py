@@ -3,8 +3,6 @@ from pydantic import BaseModel
 from kafka import KafkaProducer
 import json
 
-
-# just testing something here
 class Item(BaseModel):
     id: str
     store: str | None = None
@@ -23,7 +21,7 @@ producer = KafkaProducer(bootstrap_servers='localhost:9092',
 @app.post("/data")
 async def data(user_data: dict):
     if producer.bootstrap_connected():
-        producer.send('delhaize-shop', user_data)
+        producer.send('delhaize_shop', user_data)
         return {"status": "ok"}
     else:
         print("Bootstrap not connected")
