@@ -20,6 +20,15 @@ services:
      - /var/run/docker.sock:/var/run/docker.sock 
 
 
+# Basic service without any functionality
+services:
+  kafka-server:
+    image: apache/kafka:3.7.0
+    ports:
+     - "9092:9092"
+    volumes:
+      - ./data:/var/lib/kafka/data:rw
+
 
 # # Docker image kafka
 docker run -p 9092:9092 --name kafka-server apache/kafka:3.7.0
@@ -60,3 +69,17 @@ export PATH=$KAFKA_HOME:$PATH
 - username = root
 - pass = root1234
 - port = 5432
+
+
+# AWS
+aws audrey db username: brian
+aws audrey db pass : brian1234@
+
+#
+export RDSHOST="database-1.czkwus82o4b9.us-east-1.rds.amazonaws.com"
+export PGPASSWORD="$(aws rds generate-db-auth-token --hostname $RDSHOST --port 5432 --region us-east-1 --username brian)"
+echo $PGPASSWORD
+
+
+psql -h database-1.czkwus82o4b9.us-east-1.rds.amazonaws.com -p 5432 "dbname=mydatabase user=brian"
+pgcli -h database-1.czkwus82o4b9.us-east-1.rds.amazonaws.com -p 5432 -u brian -d mydatabase
