@@ -1,6 +1,6 @@
 # Kafka Streaming project
 
-# Overview
+## Overview
 This project involves creating a data streaming pipeline for Delhaize, enabling real-time processing and storage of sales data. The pipeline includes an API to send data to a Kafka queue, processing the data to categorize products and calculate prices, and storing the processed data in a cloud database. The project focuses on applying DevOps best practices.
 
 The project was hosted on Google Cloud using free trial, now stopped.
